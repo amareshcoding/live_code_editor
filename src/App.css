@@ -72,3 +72,51 @@ footer a:hover {
   color: #368654;
   border-color: #368654;
 }
+/* Editor Page */
+.editorContainer {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  height: 100vh;
+}
+.editorLeftBox {
+  background: #181717;
+  padding: 16px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+.leftInnerBox {
+  flex: 1;
+}
+.logoBox {
+  border-bottom: 2px solid #2e2e2e;
+  padding-bottom: 10px;
+}
+.editorLogo {
+  height: 60px;
+}
+.userList {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.leaveBtn {
+  width: 100%;
+  margin-top: 20px;
+  font-weight: 550;
+  background: #e75656;
+}
+.leaveBtn:hover{
+  background: #a51e1e;
+}
+/* userContainer */
+.userContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+}
+.userName {
+  margin-top: 10px;
+}
