@@ -46,6 +46,7 @@ footer a {
   padding: 10px;
   border-radius: 5px;
   font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
@@ -107,7 +108,7 @@ footer a:hover {
   font-weight: 550;
   background: #e75656;
 }
-.leaveBtn:hover{
+.leaveBtn:hover {
   background: #a51e1e;
 }
 /* userContainer */
@@ -119,4 +120,11 @@ footer a:hover {
 }
 .userName {
   margin-top: 10px;
+}
+/* // */
+.CodeMirror {
+  min-height: calc(100vh - 20px);
+  font-size: 20px;
+  line-height: 1.6;
+  padding-top: 20px;
 }
