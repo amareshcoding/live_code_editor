@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import toast from 'react-hot-toast';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const [roomId, setRoomId] = useState('');
-  const [uderName, setUderName] = useState('');
+  const [username, setUsername] = useState('');
   let navigate = useNavigate();
   const createNewRoom = (e) => {
     e.preventDefault();
     const id = uuidv4();
     setRoomId(id);
     toast.success('A new room is created');
-    navigate(`/editor/${id}`)
+    navigate(`/editor/${id}`, {
+      state: {
+        username,
+      },
+    });
     //     console.log('id: ', id);
   };
   return (
@@ -36,8 +40,8 @@ const Home = () => {
             className="inputField"
             type="text"
             placeholder="USERNAME"
-            value={uderName}
-            onChange={(e) => setUderName(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
           <button className="btn joinBtn">Join</button>
           <span className="createInfo">

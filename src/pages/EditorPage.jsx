@@ -1,8 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import ACTIONS from '../actions';
 import Editor from '../components/Editor';
 import User from '../components/User';
+import { initSocket } from '../socket';
+import { useLocation } from 'react-router-dom';
 
 const EditorPage = () => {
+  const socketRef = useRef(null);
+  const location = useLocation();
+  useEffect(() => {
+    const init = async () => {
+      socketRef.current = await initSocket();
+      // socketRef.current.emit(ACTIONS.JOIN, {
+      //   roomId,
+      //   username:location.state?.username
+      // });
+    };
+    init();
+  }, []);
   const [users, setUsers] = useState([
     { socketId: 1, username: 'Amaresh' },
     { socketId: 2, username: 'Barik' },
@@ -25,11 +40,11 @@ const EditorPage = () => {
             ))}
           </div>
         </div>
-        <button className='btn copyBtn'>Copy ROOM ID</button>
-        <button className='btn leaveBtn'>Leave</button>
+        <button className="btn copyBtn">Copy ROOM ID</button>
+        <button className="btn leaveBtn">Leave</button>
       </div>
       <div className="editorRightBox">
-          <Editor/>
+        <Editor />
       </div>
     </div>
   );
