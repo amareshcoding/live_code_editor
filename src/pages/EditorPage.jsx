@@ -63,6 +63,15 @@ const EditorPage = () => {
       socketRef.current.off(ACTIONS.DISCONNECTED);
     };
   }, []);
+  const copyRoomID = async () => {
+    try {
+      await navigator.clipboard.writeText(roomId);
+      toast.success('Room ID has been copied to your clicpboard.');
+    } catch (e) {
+      toast.error('unable to copy room ID')
+      console.error('e: ', e);
+    }
+  };
 
   if (!location.state) {
     return <Navigate to={'/'} />;
@@ -85,11 +94,13 @@ const EditorPage = () => {
             ))}
           </div>
         </div>
-        <button className="btn copyBtn">Copy ROOM ID</button>
+        <button onClick={copyRoomID} className="btn copyBtn">
+          Copy ROOM ID
+        </button>
         <button className="btn leaveBtn">Leave</button>
       </div>
       <div className="editorRightBox">
-        <Editor socketRef={socketRef} roomId={roomId}/>
+        <Editor socketRef={socketRef} roomId={roomId} />
       </div>
     </div>
   );
