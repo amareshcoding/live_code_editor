@@ -12,12 +12,15 @@ const Home = () => {
     const id = uuidv4();
     setRoomId(id);
     toast.success('A new room is created');
-    navigate(`/editor/${id}`, {
+
+    //     console.log('id: ', id);
+  };
+  const joinNewRoom = () => {
+    navigate(`/editor/${roomId}`, {
       state: {
         username,
       },
     });
-    //     console.log('id: ', id);
   };
   return (
     <div className="HomePageBox">
@@ -43,7 +46,9 @@ const Home = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          <button className="btn joinBtn">Join</button>
+          <button onClick={joinNewRoom} className="btn joinBtn">
+            Join
+          </button>
           <span className="createInfo">
             {' '}
             If you don't have an invite then create &nbsp;
