@@ -13,6 +13,7 @@ import toast from 'react-hot-toast';
 
 const EditorPage = () => {
   const socketRef = useRef(null);
+  const codeRef = useRef(null);
   const location = useLocation();
   const { roomId } = useParams();
   const reactNavigator = useNavigate();
@@ -45,6 +46,10 @@ const EditorPage = () => {
             console.log(`${username} joined`);
           }
           setClints(clients);
+          socketRef.current.emit(ACTIONS.SYNC_CODE, {
+            code: codeRef.current,
+            socketId,
+          });
         }
       );
       //Disconnected Listening
@@ -68,9 +73,13 @@ const EditorPage = () => {
       await navigator.clipboard.writeText(roomId);
       toast.success('Room ID has been copied to your clicpboard.');
     } catch (e) {
-      toast.error('unable to copy room ID')
+      toast.error('unable to copy room ID');
       console.error('e: ', e);
     }
+  };
+  const leaveMeetingRoom = () => {
+    //
+    reactNavigator('/');
   };
 
   if (!location.state) {
@@ -97,10 +106,18 @@ const EditorPage = () => {
         <button onClick={copyRoomID} className="btn copyBtn">
           Copy ROOM ID
         </button>
-        <button className="btn leaveBtn">Leave</button>
+        <button onClick={leaveMeetingRoom} className="btn leaveBtn">
+          Leave
+        </button>
       </div>
       <div className="editorRightBox">
-        <Editor socketRef={socketRef} roomId={roomId} />
+        <Editor
+          socketRef={socketRef}
+          roomId={roomId}
+          onCodeChange={(code) => {
+            codeRef.current = code;
+          }}
+        />
       </div>
     </div>
   );

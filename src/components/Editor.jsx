@@ -9,7 +9,7 @@ import { useRef } from 'react';
 import { Socket } from 'socket.io-client';
 import ACTIONS from '../actions';
 
-const Editor = ({ socketRef, roomId }) => {
+const Editor = ({ socketRef, roomId, onCodeChange }) => {
   const editorRef = useRef(null);
   useEffect(() => {
     async function init() {
@@ -25,13 +25,14 @@ const Editor = ({ socketRef, roomId }) => {
       );
 
       editorRef.current.on('change', (instance, changes) => {
-        // console.log('changes: ', changes);
         //return action type
         const { origin } = changes;
 
         //returns total code
         const code = instance.getValue();
 
+        //sending code to parent component
+        onCodeChange(code);
         //
         if (origin !== 'setValue') {
           socketRef.current.emit(ACTIONS.CODE_CHANGE, {
@@ -46,12 +47,14 @@ const Editor = ({ socketRef, roomId }) => {
   useEffect(() => {
     if (socketRef.current) {
       socketRef.current.on(ACTIONS.CODE_CHANGE, ({ code }) => {
-        
         if (code !== null) {
           editorRef.current.setValue(code);
         }
       });
     }
+    return () => {
+      socketRef.current.off(ACTIONS.CODE_CHANGE);
+    };
   }, [socketRef.current]);
   return <textarea id="codeEditorArea"></textarea>;
 };
