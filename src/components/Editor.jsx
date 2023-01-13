@@ -6,7 +6,6 @@ import 'codemirror/theme/dracula.css';
 import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
 import { useRef } from 'react';
-import { Socket } from 'socket.io-client';
 import ACTIONS from '../actions';
 
 const Editor = ({ socketRef, roomId, onCodeChange }) => {
